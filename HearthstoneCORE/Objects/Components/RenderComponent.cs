@@ -9,6 +9,8 @@ namespace HearthstoneCORE.Objects.Components
     public class RenderComponent : ASCIIHandler
     {
         public RenderLocation Location { get; set; }
+        public RenderLocation PreviousLocation { get; set; }
+        public bool Enabled { get; set; }
 
         public RenderComponent(RenderLocation Location)
         {

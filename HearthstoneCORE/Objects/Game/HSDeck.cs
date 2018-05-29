@@ -12,13 +12,18 @@ namespace HearthstoneCORE.Objects.Game
         {
             get
             {
-                return Cards;
+                return cards;
             }
         }
 
         public HSDeck()
         {
             cards = new List<HSCard>();
+        }
+
+        public void AddCards(List<HSCard> cards)
+        {
+            Cards.AddRange(cards);
         }
 
         public void AddCard(HSCard card)

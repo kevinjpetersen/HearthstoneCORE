@@ -16,10 +16,11 @@ namespace HearthstoneCORE
         public KeyboardHandler KeyboardHandler { get; set; }
 
         public ASCIIComponent Logo;
-        public CardComponent Card;
         public GameBoardComponent GameBoard;
 
         public static Game Instance;
+
+        public HSPlayer player1;
 
         public Game()
         {
@@ -35,28 +36,34 @@ namespace HearthstoneCORE
         {
             Console.Title = "HearthstoneCORE";
             Console.CursorVisible = false;
-            
+
             //Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
             //Console.SetBufferSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 
             RenderComponents = new List<RenderComponent>();
 
-            HSCard testCard = new HSCard("Arthas the lich king", "At the start of your turn, gain +1 Amunkar Health which will disapear once you kill yourself", "TempArt", HSCard.Rarities.Legendary, 10, 22, 15, HSCard.CardTypes.Humanoid);
 
+            List<HSCard> cards = HSCard.GetAllCards();
+
+            HSDeck deck = new HSDeck();
+            deck.AddCards(cards);
+
+            player1 = new HSPlayer(deck);
 
             Logo = new ASCIIComponent("logo", new RenderLocation(Console.WindowWidth - 5, 10));
-            Card = new CardComponent(testCard, new RenderLocation(35, 6));
+
             GameBoard = new GameBoardComponent(new RenderLocation(1, 1));
 
             RenderComponents.Add(GameBoard);
 
-            for(int i = 1; i <= 2; i++)
-            {
-                var c = new CardComponent(testCard, new RenderLocation(35 * i, 6));
-                RenderComponents.Add(c);
-            }
+            //int i = 1;
+            //foreach(var card in deck.Cards)
+            //{
+            //    card.RenderComponent = new CardComponent(card, new RenderLocation(i * 5, 6));
+            //    RenderComponents.Add(card.RenderComponent);
+            //    i++;
+            //}
 
-            RenderComponents.Add(Card);
             RenderComponents.Add(Logo);
 
         }
@@ -66,18 +73,20 @@ namespace HearthstoneCORE
             //Logo.Translate(new RenderLocation(1, 0));
             //Logo.Location = new RenderLocation(Console.WindowWidth / 2 - 30, 5);
 
-            if(KeyboardHandler.GetKeyPress(ConsoleKey.D))
+            if(KeyboardHandler.GetKeyPress(ConsoleKey.F))
             {
-                Logo.Translate(new RenderLocation(1, 0));
+                //player1.HighlightCard(player1.CardsInHand[0]);
+                player1.GoThroughHand();
                 UpdateHandler.Redraw();
             }
 
-            if (KeyboardHandler.GetKeyPress(ConsoleKey.A))
+            if (KeyboardHandler.GetKeyPress(ConsoleKey.G))
             {
-                Card.Translate(new RenderLocation(10, 0));
+                player1.UnhighlightCard(player1.HighlightedCard);
+                UpdateHandler.Redraw();
             }
 
-            if(KeyboardHandler.GetKeyPress(ConsoleKey.Spacebar))
+            if (KeyboardHandler.GetKeyPress(ConsoleKey.Spacebar))
             {
                 UpdateHandler.Redraw();
             }
@@ -89,6 +98,20 @@ namespace HearthstoneCORE
             foreach(var rc in RenderComponents)
             {
                 rc.Render();
+            }
+
+            int i = 1;
+            foreach(var rc in player1.CardsInHand)
+            {
+                if(player1.HighlightedCard != rc)
+                {
+                    rc.RenderComponent.Location = new RenderLocation(Console.WindowWidth / 2 - (i * 5), Console.WindowHeight - 28);
+                } else
+                {
+                    rc.RenderComponent.Location = new RenderLocation(Console.WindowWidth / 2 - 15, Console.WindowHeight / 2 - 15);
+                }
+                rc.RenderComponent.Render();
+                i++;
             }
 
         }

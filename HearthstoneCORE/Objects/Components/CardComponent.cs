@@ -18,12 +18,12 @@ namespace HearthstoneCORE.Objects.Components
         public override void Render()
         {
             RenderAsciiFile("card", Location);
-            RenderText(Card.ManaCost.ToString(), new RenderLocation(Location.X + 2, Location.Y + 1), foregroundColor: ConsoleColor.Blue);
-            RenderText(Card.Attack.ToString(), new RenderLocation(Location.X + 2, Location.Y + 19), foregroundColor: ConsoleColor.Yellow);
-            RenderText(Card.Health.ToString(), new RenderLocation(Location.X + 28, Location.Y + 19), foregroundColor: ConsoleColor.Red);
-            RenderText(Card.Name, new RenderLocation(Location.X + 1, Location.Y + 10), new RenderSize(31, 1), textHorizontalAlignment: Alignment.Center, foregroundColor: ConsoleColor.White);
-            RenderText(Card.Description, new RenderLocation(Location.X + 2, Location.Y + 11), 28, 0, foregroundColor: ConsoleColor.White);
-            RenderCardImageArtAsciiFile(Card.ImageArtFileName, new RenderLocation(Location.X + 1, Location.Y + 1));
+            RenderText((Card.mana.HasValue ? Card.mana.Value.ToString() : "0"), new RenderLocation(Location.X + 2, Location.Y + 1), foregroundColor: ConsoleColor.Blue);
+            RenderText((Card.attack.HasValue ? Card.attack.Value.ToString() : "0"), new RenderLocation(Location.X + 2, Location.Y + 19), foregroundColor: ConsoleColor.Yellow);
+            RenderText((Card.health.HasValue ? Card.health.Value.ToString() : "0"), new RenderLocation(Location.X + 28, Location.Y + 19), foregroundColor: ConsoleColor.Red);
+            RenderText(Card.name, new RenderLocation(Location.X + 1, Location.Y + 10), new RenderSize(31, 1), textHorizontalAlignment: Alignment.Center, foregroundColor: ConsoleColor.White);
+            RenderText(Card.description, new RenderLocation(Location.X + 2, Location.Y + 11), 28, 0, foregroundColor: ConsoleColor.White);
+            RenderCardImageArtAsciiFile("TempArt", new RenderLocation(Location.X + 1, Location.Y + 1));
         }
     }
 }
