@@ -1,5 +1,7 @@
-﻿using HearthstoneCORE.Components;
-using HearthstoneCORE.Objects;
+﻿using HearthstoneCORE.Handlers;
+using HearthstoneCORE.Objects.Components;
+using HearthstoneCORE.Objects.Game;
+using HearthstoneCORE.Objects.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,14 +10,21 @@ namespace HearthstoneCORE
 {
     public class Game
     {
-        public UpdateHandler UpdateHandler { get; set; }
         public List<RenderComponent> RenderComponents;
 
+        public UpdateHandler UpdateHandler { get; set; }
+        public KeyboardHandler KeyboardHandler { get; set; }
+
         public ASCIIComponent Logo;
-        public ASCIIComponent Card;
+        public CardComponent Card;
+
+        public static Game Instance;
 
         public Game()
         {
+            Instance = this;
+            KeyboardHandler = new KeyboardHandler();
+
             Init();
             UpdateHandler = new UpdateHandler(LogicUpdate, DrawUpdate);
             UpdateHandler.Handle();
@@ -31,8 +40,11 @@ namespace HearthstoneCORE
 
             RenderComponents = new List<RenderComponent>();
 
+            HSCard testCard = new HSCard("Arthas the lich king", "At the start of your turn, gain +1 Amunkar Health which will disapear once you kill yourself", "TempArt", HSCard.Rarities.Legendary, 10, 22, 15, HSCard.CardTypes.Humanoid);
+
+
             Logo = new ASCIIComponent("logo", new RenderLocation(Console.BufferWidth / 2 - 30, 0));
-            Card = new ASCIIComponent("card", new RenderLocation(35, 4));
+            Card = new CardComponent(testCard, new RenderLocation(35, 4));
 
             RenderComponents.Add(Logo);
             RenderComponents.Add(Card);
@@ -41,8 +53,18 @@ namespace HearthstoneCORE
 
         public void LogicUpdate()
         {
-
             //Logo.Translate(new RenderLocation(1, 0));
+
+            if(KeyboardHandler.GetKeyPress(KeyboardHandler.KeyPressed.D))
+            {
+                Logo.Translate(new RenderLocation(1, 0));
+            }
+
+            if (KeyboardHandler.GetKeyPress(KeyboardHandler.KeyPressed.A))
+            {
+                Card.Translate(new RenderLocation(10, 0));
+            }
+
         }
 
         public void DrawUpdate()

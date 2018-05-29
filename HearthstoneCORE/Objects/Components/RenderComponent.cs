@@ -1,9 +1,10 @@
-﻿using HearthstoneCORE.Components;
+﻿using HearthstoneCORE.Handlers;
+using HearthstoneCORE.Objects.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HearthstoneCORE.Objects
+namespace HearthstoneCORE.Objects.Components
 {
     public class RenderComponent : ASCIIHandler
     {

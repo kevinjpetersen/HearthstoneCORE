@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace HearthstoneCORE.Components
+namespace HearthstoneCORE.Handlers
 {
     public class UpdateHandler
     {
-        private const int frameRate = 1000 / 5; // Rethink this
-        private bool isRendering = true;
-        private Thread renderingThread;
+        private const int FPS = 5;
+        private bool isRunning = true;
+        private Thread keyboardThread;
 
         public delegate void LogicUpdate_Function();
         public delegate void DrawUpdate_Function();
@@ -25,20 +25,26 @@ namespace HearthstoneCORE.Components
 
         public void Handle()
         {
-            renderingThread = new Thread(() =>
+            keyboardThread = new Thread(() =>
             {
-                while (isRendering)
+                while (isRunning)
                 {
-                    Console.Clear();
-
-                    logicUpdate();
-                    drawUpdate();
-
-                    Thread.Sleep(frameRate);
+                    Game.Instance.KeyboardHandler.Events();
+                    Thread.Sleep(1000 / FPS);
                 }
             });
-            renderingThread.IsBackground = true;
-            renderingThread.Start();
+            keyboardThread.IsBackground = true;
+            keyboardThread.Start();
+
+            while (isRunning)
+            {
+                Console.Clear();
+
+                logicUpdate();
+                drawUpdate();
+
+                Thread.Sleep(1000 / FPS);
+            }
         }
 
 

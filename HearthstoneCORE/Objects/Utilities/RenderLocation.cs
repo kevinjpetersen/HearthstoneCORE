@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HearthstoneCORE.Objects
+namespace HearthstoneCORE.Objects.Utilities
 {
     public class RenderLocation
     {

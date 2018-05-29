@@ -1,8 +1,9 @@
-﻿using System;
+﻿using HearthstoneCORE.Objects.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HearthstoneCORE.Objects
+namespace HearthstoneCORE.Objects.Components
 {
     public class TextComponent : RenderComponent
     {
