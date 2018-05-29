@@ -7,9 +7,10 @@ namespace HearthstoneCORE.Handlers
 {
     public class UpdateHandler
     {
-        private const int FPS = 5;
+        private const int FPS = 30;
         private bool isRunning = true;
         private Thread keyboardThread;
+        private bool redraw = true;
 
         public delegate void LogicUpdate_Function();
         public delegate void DrawUpdate_Function();
@@ -21,6 +22,11 @@ namespace HearthstoneCORE.Handlers
         {
             logicUpdate = LogicUpdate;
             drawUpdate = DrawUpdate;
+        }
+
+        public void Redraw()
+        {
+            redraw = true;
         }
 
         public void Handle()
@@ -38,10 +44,15 @@ namespace HearthstoneCORE.Handlers
 
             while (isRunning)
             {
-                Console.Clear();
 
                 logicUpdate();
-                drawUpdate();
+
+                if(redraw)
+                {
+                    redraw = false;
+                    Console.Clear();
+                    drawUpdate();
+                }
 
                 Thread.Sleep(1000 / FPS);
             }
