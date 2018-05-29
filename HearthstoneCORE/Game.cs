@@ -17,6 +17,7 @@ namespace HearthstoneCORE
 
         public ASCIIComponent Logo;
         public CardComponent Card;
+        public GameBoardComponent GameBoard;
 
         public static Game Instance;
 
@@ -43,17 +44,20 @@ namespace HearthstoneCORE
             HSCard testCard = new HSCard("Arthas the lich king", "At the start of your turn, gain +1 Amunkar Health which will disapear once you kill yourself", "TempArt", HSCard.Rarities.Legendary, 10, 22, 15, HSCard.CardTypes.Humanoid);
 
 
-            Logo = new ASCIIComponent("logo", new RenderLocation(Console.BufferWidth / 2 - 30, 0));
-            Card = new CardComponent(testCard, new RenderLocation(35, 4));
+            Logo = new ASCIIComponent("logo", new RenderLocation(Console.WindowWidth / 2 - 30, 5));
+            Card = new CardComponent(testCard, new RenderLocation(35, 6));
+            GameBoard = new GameBoardComponent(new RenderLocation(1, 1));
 
-            RenderComponents.Add(Logo);
+            RenderComponents.Add(GameBoard);
             RenderComponents.Add(Card);
+            RenderComponents.Add(Logo);
 
         }
 
         public void LogicUpdate()
         {
             //Logo.Translate(new RenderLocation(1, 0));
+            Logo.Location = new RenderLocation(Console.WindowWidth / 2 - 30, 5);
 
             if(KeyboardHandler.GetKeyPress(KeyboardHandler.KeyPressed.D))
             {

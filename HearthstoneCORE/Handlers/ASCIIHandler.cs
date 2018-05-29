@@ -99,6 +99,51 @@ namespace HearthstoneCORE.Handlers
             }
         }
 
+        public void RenderBox(RenderLocation Location, RenderSize Size)
+        {
+            string s = "╔";
+            string space = "";
+            string temp = "";
+            for (int i = Location.X; i < Size.Width; i++)
+            {
+                space += " ";
+                s += "═";
+            }
+
+            for (int j = 0; j < Location.X; j++)
+                temp += " ";
+
+            s += "╗" + "\n";
+
+            for (int i = Location.Y; i < Size.Height; i++)
+                s += temp + "║" + space + "║" + "\n";
+
+            s += temp + "╚";
+            for (int i = 0; i < Size.Width - 1; i++)
+                s += "═";
+
+            s += "╝" + "\n";
+            
+            Console.CursorTop = Location.Y;
+            Console.CursorLeft = Location.X;
+            Console.Write(s);
+
+
+            //for(int x = Location.X; x < Size.Width; x++)
+            //{
+            //    for (int y = Location.Y; y < Size.Height; y++)
+            //    {
+            //        SetPosition(x, y);
+            //        if (y == Location.Y && x == Location.X) Console.Write("╔");
+            //        else if (y == Size.Height - 1 && x == Location.X) Console.Write("╚");
+            //        else if (y == Location.Y && x == Size.Width - 1) Console.Write("╗");
+            //        else if (y == Size.Height - 1 && x == Size.Width - 1) Console.Write("╝");
+            //        else if (y == Location.Y || y == Size.Height - 1) Console.Write("═");
+            //        else if (x == Location.X || x == Size.Width - 1) Console.Write("║");
+            //    }
+            //}
+        }
+
         public void SetPosition(RenderLocation Location)
         {
             Console.SetCursorPosition(Location.X, Location.Y);
