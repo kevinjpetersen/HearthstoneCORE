@@ -1,0 +1,2 @@
+# HearthstoneCORE
+Description TBA
