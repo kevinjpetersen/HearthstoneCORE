@@ -41,4 +41,4 @@ Feel free to help in any way you want with a Pull Request, I'm also happy to ans
 
 ## Credits
 ### Kevin J. Petersen (myself) (LinkedIn: https://www.linkedin.com/in/publicvoid/)
-### Blizzard Entertainment the awesome Hearthstone game! .. and for not suing me (hopefully) :)
+### Blizzard Entertainment for the awesome Hearthstone game and inspiration to develop this project! .. and for not suing me (hopefully) :)
