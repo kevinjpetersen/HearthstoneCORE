@@ -66,6 +66,8 @@ namespace HearthstoneCORE
 
             RenderComponents.Add(Logo);
 
+            SoundHandler.Instance.PlaySound(Environment.CurrentDirectory + "/Resources/Audio/aa.wav");
+
         }
 
         public void LogicUpdate()
